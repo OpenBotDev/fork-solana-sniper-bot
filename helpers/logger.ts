@@ -3,7 +3,7 @@ import * as path from 'path';
 
 let parentDir = path.basename(path.dirname("."));
 
-const logFile = path.join(parentDir, '/logs/app.log');
+const logFile = path.join(parentDir, 'app.log');
 
 const transport = pino.transport({
   targets: [
