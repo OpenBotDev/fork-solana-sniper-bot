@@ -1,8 +1,22 @@
 import pino from 'pino';
+import * as path from 'path';
+
+let parentDir = path.basename(path.dirname("."));
+
+const logFile = path.join(parentDir, '/logs/app.log');
 
 const transport = pino.transport({
-  target: 'pino-pretty',
+  targets: [
+    {
+      target: 'pino/file',
+      options: { destination: logFile },
+    },
+    {
+      target: 'pino-pretty',
+    },
+  ],
 });
+
 
 export const logger = pino(
   {
@@ -12,6 +26,7 @@ export const logger = pino(
       error: pino.stdSerializers.err,
     },
     base: undefined,
+    timestamp: pino.stdTimeFunctions.isoTime,
   },
   transport,
 );
